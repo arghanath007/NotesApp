@@ -35,14 +35,36 @@
         </button>
         <div class="collapse navbar-collapse" id="navbar">
           <div class="navbar-nav">
+            {% if user.is_authenticated %}
+            <a class="nav-item nav-link" id="home" href="/">Home</a>
+            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+            {% else %}
             <a class="nav-item nav-link" id="login" href="/login">Login</a>
             <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-            <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-            <a href="" class="nav-item nav-link" id="home" href="/">Home</a>
+            {% endif %}
           </div>
         </div>
       </div>
     </nav>
+
+    {% with messages=get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+
+    <div class="alert alert-danger alert-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-bs-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+    <div class="alert alert-success alert-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-bs-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
 
     <!--* Navbar End -->
 
